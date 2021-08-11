@@ -2,4 +2,8 @@
 A python script to download Garfield comics
 
 ### Usage
-> python v1.py
+Start Process 
+> python v1.py  
+
+End process
+> Ctrl + C

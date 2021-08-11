@@ -47,4 +47,7 @@ def getComic():
 
 
 if __name__ == '__main__':
-    getComic()
+    try:
+        getComic()
+    except KeyboardInterrupt:
+        print("You have the aborted the process with Ctrl+C")

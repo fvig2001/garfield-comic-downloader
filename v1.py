@@ -2,8 +2,11 @@ import requests, bs4, os
 from datetime import date
 
 def prerequesites():
+    startDate = input(
+        "Enter date from when you need the comic strips(YYYY/MM/DD):  ")
+    endDate = input("Enter end date(YYYY/MM/DD): ")
     os.makedirs('comics', exist_ok=True)
-    return "https://www.gocomics.com/garfield/" + date.today().strftime("%Y/%m/%d")
+    return "https://www.gocomics.com/garfield/" + startDate, "https://www.gocomics.com/garfield/" + endDate
 
 
 def getComic():

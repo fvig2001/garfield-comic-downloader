@@ -13,7 +13,7 @@ def prerequesites():
 
 
 def get_html():
-    page = requests.get()
+    page = requests.get(url)
     page.raise_for_status()
     html = bs4.BeautifulSoup(page.text, 'html.parser')
     return html

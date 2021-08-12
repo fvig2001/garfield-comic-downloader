@@ -2,11 +2,19 @@ import requests, bs4, os
 from datetime import date
 
 def prerequesites():
+    top_url = "https://www.gocomics.com/garfield/"
     startDate = input(
         "Enter date from when you need the comic strips(YYYY/MM/DD):  ")
     endDate = input("Enter end date(YYYY/MM/DD): ")
     os.makedirs('comics', exist_ok=True)
-    return "https://www.gocomics.com/garfield/" + startDate, "https://www.gocomics.com/garfield/" + endDate
+    return top_url + startDate, top_url + endDate
+
+
+def get_html(url):
+    page = requests.get(url)
+    page.raise_for_status()
+    html = bs4.BeautifulSoup(page.text, 'html.parser')
+    return html
 
 
 def getComic():
@@ -16,7 +24,7 @@ def getComic():
         page = requests.get(url)
         page.raise_for_status()
 
-        html = bs4.BeautifulSoup(page.text, 'html.parser')
+        html = get_html(url)
         comicElement = html.select('img')
 
         if len(comicElement) == 0:

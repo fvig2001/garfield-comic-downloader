@@ -61,8 +61,6 @@ def get_all_comics():
             break
 
 
-url, endurl = prerequesites()
-
 if __name__ == '__main__':
     try:
         url, endurl = prerequesites()

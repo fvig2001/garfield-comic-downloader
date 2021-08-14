@@ -1,7 +1,10 @@
-import requests, bs4, os
-from datetime import date
+import requests
+import bs4
+import os
 
 message = "Go check out /comics to find the downloaded comic strips!"
+html = ''
+
 
 def prerequesites():
     top_url = "https://www.gocomics.com/garfield/"
@@ -15,12 +18,13 @@ def prerequesites():
 def get_html():
     page = requests.get(url)
     page.raise_for_status()
+    global html
     html = bs4.BeautifulSoup(page.text, 'html.parser')
     return html
 
 
-def download_comic():
-    comicElement = get_html().select('img')
+def download_comic(html):
+    comicElement = html.select('img')
     comicUrl = comicElement[4].get('src')
     comicFile = requests.get(comicUrl)
     imageFile = open(
@@ -31,8 +35,8 @@ def download_comic():
     imageFile.close()
 
 
-def next_comic():
-    nextComic = get_html().select(
+def next_comic(html):
+    nextComic = html.select(
         'a[class="fa btn btn-outline-secondary btn-circle fa-caret-right sm"]')
     global url
     url = "https://www.gocomics.com" + nextComic[0].get("href")
@@ -40,8 +44,9 @@ def next_comic():
 
 def get_all_comics():
     while not url.endswith('#'):
+        html = get_html()
         try:
-            download_comic()
+            download_comic(html)
         except IndexError:
             print("An error occurred, the comic wasn't found.")
 
@@ -49,12 +54,14 @@ def get_all_comics():
             print(message)
             break
         try:
-            next_comic()
+            next_comic(html)
         except IndexError:
-            print("The comic on that date doesn't exist! ")
+            print("That comic isn't available yet!")
             print(message)
             break
 
+
+url, endurl = prerequesites()
 
 if __name__ == '__main__':
     try:

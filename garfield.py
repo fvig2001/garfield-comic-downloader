@@ -85,3 +85,4 @@ if __name__ == '__main__':
         get_all_comics()
     except KeyboardInterrupt:
         print("You have the aborted the process with Ctrl+C")
+ 

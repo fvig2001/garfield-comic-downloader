@@ -2,8 +2,10 @@
 A python script to download Garfield comics
 
 ### Usage
-Start Script 
-> python v1.py  
+- Start Script 
+  > python garfield.py  
 
-End Script 
-> Ctrl + C
+- Enter start and end date
+
+- Abort Script 
+  > Ctrl + C
